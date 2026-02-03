@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import {
   Ctx,
   EventPattern,
@@ -8,7 +8,7 @@ import {
 import { ProcessMessageUseCase } from '../core/application/use-cases/process-message.use-case';
 import { ExampleDTO } from '../core/application/use-cases/dtos/example.dto';
 
-@Controller()
+@Controller('/v1/example')
 export class WorkerController {
   constructor(private readonly processMessageUseCase: ProcessMessageUseCase) { }
 
@@ -18,6 +18,13 @@ export class WorkerController {
     @Ctx() context: KafkaContext,
   ) {
     console.log(context, message);
+    await this.processMessageUseCase.execute(message);
+  }
+
+  @Post('/process')
+  async processMessage2(
+    @Body() message: ExampleDTO,
+  ) {
     await this.processMessageUseCase.execute(message);
   }
 }
