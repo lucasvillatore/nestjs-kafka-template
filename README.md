@@ -35,6 +35,14 @@ Para execução, siga os seguintes passos:
    ```
 
 
+### Para criar o tópico 
+```bash
+    docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh \
+    --topic meu-topico-teste \
+    --bootstrap-server localhost:9092
+```
+
+
 ### Para mandar mensagens para fila, basta executar o comando abaixo:
     ```bash
     npm run kafka:send
