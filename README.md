@@ -15,7 +15,7 @@ Para execução, siga os seguintes passos:
 
 2. Instale as dependências:
    ```bash
-   cd kafka-validator
+   cd nestjs-kafka-template
    npm install
    ```
 
@@ -24,10 +24,16 @@ Para execução, siga os seguintes passos:
     docker-compose up -d
     ```
 
-4. Execute o aplicativo:
+4. Execute o aplicativo para execução do worker:
    ```bash
-   npm run start:dev
+   npm run start:worker:dev
    ```
+
+5. Execute o aplicativo para execução do worker + api:
+   ```bash
+   npm run start:both:dev
+   ```
+
 
 ### Para mandar mensagens para fila, basta executar o comando abaixo:
     ```bash
@@ -35,14 +41,3 @@ Para execução, siga os seguintes passos:
     ```
 
 Para alterar a mensagem, basta editar o arquivo ./dados.json
-
-## Somente o worker
-
-1. Entre no arquivo main.ts 
-2. Comente a linha que chama a função apiAndWorker()
-3. Descomente a linha que chama a função onlyWorker()
-
-## Somente a API + Worker
-1. Entre no arquivo main.ts 
-2. Comente a linha que chama a função onlyWorker()
-3. Descomente a linha que chama a função apiAndWorker()

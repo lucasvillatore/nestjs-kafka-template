@@ -33,40 +33,4 @@ async function onlyWorker() {
   console.log('🚀 Worker iniciado e ouvindo Kafka!');
 }
 
-async function apiAndWorker() {
-  const app = await NestFactory.create(AppModule);
-
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        brokers: ['localhost:9092'],
-      },
-      consumer: {
-        groupId: 'my-group-id',
-        sessionTimeout: 30000,
-      },
-      subscribe: {
-        fromBeginning: true,
-      },
-    },
-  });
-
-  app.useGlobalFilters(new KafkaExceptionFilter());
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-    validateCustomDecorators: true,
-  }));
-
-  await app.startAllMicroservices();
-
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-
-  console.log(`🚀 API HTTP rodando na porta ${port}`);
-  console.log('🎧 Worker iniciado e ouvindo Kafka!');
-}
-
-// void apiAndWorker();
 void onlyWorker();
